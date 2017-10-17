@@ -1,6 +1,6 @@
 FROM ubuntu:12.04
 
-MAINTAINER mskorge
+MAINTAINER skorge
 
 # Run a quick apt-get update/upgrade
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge
