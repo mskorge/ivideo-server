@@ -25,8 +25,10 @@ ENV ENABLE_WEB_INTERFACE="true"
 #VOLUME ["/video_archive"]
 
 # Prepare iVideon repository
-RUN wget http://packages.ivideon.com/public/keys/ivideon.list -O /etc/apt/sources.list.d/ivideon.list && \
-    wget -O - http://packages.ivideon.com/public/keys/ivideon.key | apt-key add - && \
+RUN wget "http://packages.ivideon.com/ubuntu/keys/ivideon.list" -O "/etc/apt/sources.list.d/ivideon.list"
+    wget -O - "http://packages.ivideon.com/ubuntu/keys/ivideon.key" | apt-key add -
+    
+
 
 # Install iVideon
 RUN apt-get update && \
