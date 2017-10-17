@@ -1,6 +1,6 @@
 FROM ubuntu:12.04
 
-MAINTAINER didstopia
+MAINTAINER mskorge
 
 # Run a quick apt-get update/upgrade
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge
@@ -27,16 +27,18 @@ ENV ENABLE_WEB_INTERFACE="true"
 # Prepare iVideon repository
 RUN wget http://packages.ivideon.com/public/keys/ivideon.list -O /etc/apt/sources.list.d/ivideon.list && \
     wget -O - http://packages.ivideon.com/public/keys/ivideon.key | apt-key add - && \
-    apt-get update
 
 # Install iVideon
 RUN apt-get update && \
     apt-get install -y \
-    ivideon-server
+    ivideon-server-headless
 
 # Cleanup
 RUN apt-get clean
 
+
+# Create config and archive directory
+RUN mkdir -p /opt/ivideon/data/archive
+
 # Start the server
-ADD start.sh /start.sh
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["/opt/ivideon/ivideon-server/videoserver","-c","/opt/ivideon/data/videoserverd.config"]
